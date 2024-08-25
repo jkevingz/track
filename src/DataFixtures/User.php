@@ -5,14 +5,28 @@ namespace App\DataFixtures;
 use App\Entity\User as EntityUser;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class User extends Fixture
 {
+    /**
+     * Creates a new instance of User class.
+     * 
+     * @param \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $userPasswordHasher
+     */
+    public function __construct(protected UserPasswordHasherInterface $userPasswordHasher)
+    {
+        //   
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function load(ObjectManager $manager): void
     {
         $user = new EntityUser();
         $user->setEmail('email@email.com');
-        $user->setPassword('$2y$13$l1sgTG4Eqd2BmyJu.t1XG.7WPMTyf86bT2nJ03CuWBr1.Ifj8uaii'); // password
+        $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
 
         $manager->persist($user);
 

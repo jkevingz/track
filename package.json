@@ -25,6 +25,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "pinia": "^2.2.2",
         "vue-router": "^4.4.3"
     }
 }
