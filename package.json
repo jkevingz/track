@@ -25,6 +25,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@ant-design/icons-vue": "^7.0.1",
+        "ant-design-vue": "^4.2.3",
+        "axios": "^1.7.5",
         "pinia": "^2.2.2",
         "vue-router": "^4.4.3"
     }
