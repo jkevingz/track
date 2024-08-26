@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class AppController extends AbstractController
 {
-    #[Route('/{path<^(?!api).*>}', name: 'app.index', methods: 'GET')]
+    #[Route('/{path<^[(?!api)|(?!_error)|(?!_wdt)|(?!_profiler)].*>}', name: 'app.index', methods: 'GET')]
     public function index(): Response
     {
         return $this->render('app/index.html.twig');

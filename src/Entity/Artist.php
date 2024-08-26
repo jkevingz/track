@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
-#[ApiResource]
+#[ApiResource(paginationEnabled: false)]
 class Artist
 {
     #[ORM\Id]

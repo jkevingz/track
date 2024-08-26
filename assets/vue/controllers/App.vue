@@ -2,7 +2,7 @@
     <a-layout class="layout">
         <a-layout-sider v-model:collapsed="collapsed" collapsible>
             <div class="logo">
-                Track APP
+                Track App
             </div>
             <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
                 <a-menu-item key="Login" v-if="!authStore.isAuthenticated">
@@ -32,6 +32,9 @@
                 <a-typography-title :level="2" class="header-title">
                     {{ route.name }}
                 </a-typography-title>
+                <div v-if="route.name == 'Artists'">
+                    <a-button :disabled="!artistStore.itemForForm?.id" type="primary" @click="clearItemToUpdate()">Add</a-button>
+                </div>
             </a-layout-header>
             <a-layout-content class="content">
                 <div class="inner-content">
@@ -39,7 +42,7 @@
                 </div>
             </a-layout-content>
             <a-layout-footer class="footer">
-                Track API ©{{ new Date().getFullYear() }} Created by Kevin Garcia
+                Track App ©{{ new Date().getFullYear() }} Created by Kevin Garcia
             </a-layout-footer>
         </a-layout>
     </a-layout>
@@ -50,6 +53,7 @@ import { RouterView, useRoute } from 'vue-router';
 import { ref, watch } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { SoundOutlined, UserOutlined, LoginOutlined, LogoutOutlined } from '@ant-design/icons-vue';
+import { useArtistStore } from '../stores/artist';
 const collapsed = ref(false);
 const selectedKeys = ref([]);
 const route = useRoute();
@@ -59,6 +63,9 @@ watch(route, (value) => {
 });
 
 const logout = () => authStore.logout();
+
+const artistStore = useArtistStore();
+const clearItemToUpdate = () => artistStore.setItemForForm();
 </script>
 
 <style scoped>
@@ -76,9 +83,10 @@ const logout = () => authStore.logout();
 }
 .header {
     background: #FFFFFF;
-    padding: 0 0 0 16px;
+    padding: 0 16px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .header-title {
     margin: 0;
