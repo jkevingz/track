@@ -31,9 +31,9 @@ const onFinish = async ({ name }) => {
         isUpdate.value
             ? await artistStore.update(formState.id, { name })
             : await artistStore.create({ name });
+        message.success(`Artist ${isUpdate.value ? 'updated' : 'created'} successfully.`)
         artistStore.setItemForForm();
         setFormState();
-        message.success(`Artist ${isUpdate.value ? 'updated' : 'created'} successfully.`)
         emits('success');
     } catch (error) {
         message.error(

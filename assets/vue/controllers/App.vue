@@ -33,7 +33,10 @@
                     {{ route.name }}
                 </a-typography-title>
                 <div v-if="route.name == 'Artists'">
-                    <a-button :disabled="!artistStore.itemForForm?.id" type="primary" @click="clearItemToUpdate()">Add</a-button>
+                    <a-button :disabled="!artistStore.itemForForm?.id" type="primary" @click="clearArtistToUpdate()">Add</a-button>
+                </div>
+                <div v-if="route.name == 'Tracks'">
+                    <a-button type="primary" @click="openTrackDrawer()">Add</a-button>
                 </div>
             </a-layout-header>
             <a-layout-content class="content">
@@ -54,6 +57,7 @@ import { ref, watch } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { SoundOutlined, UserOutlined, LoginOutlined, LogoutOutlined } from '@ant-design/icons-vue';
 import { useArtistStore } from '../stores/artist';
+import { useTrackStore } from '../stores/track';
 const collapsed = ref(false);
 const selectedKeys = ref([]);
 const route = useRoute();
@@ -65,7 +69,10 @@ watch(route, (value) => {
 const logout = () => authStore.logout();
 
 const artistStore = useArtistStore();
-const clearItemToUpdate = () => artistStore.setItemForForm();
+const clearArtistToUpdate = () => artistStore.setItemForForm();
+
+const trackStore = useTrackStore();
+const openTrackDrawer = () => trackStore.openTrackDrawer();
 </script>
 
 <style scoped>

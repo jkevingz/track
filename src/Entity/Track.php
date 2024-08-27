@@ -2,36 +2,56 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\TrackRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
+#[ApiResource(paginationEnabled: false, normalizationContext: ['groups' => ['track']])]
 class Track
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('track')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('track')]
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('track')]
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\Url]
     private ?string $isrc = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Context(normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Groups('track')]
     private ?\DateTimeInterface $release_date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('track')]
     private ?string $track_path = null;
 
     /**
      * @var Collection<int, Artist>
      */
-    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'tracks')]
+    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'tracks', fetch: 'EAGER')]
+    #[Groups('track')]
     private Collection $artists;
 
     public function __construct()

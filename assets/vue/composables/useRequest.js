@@ -25,7 +25,6 @@ export const useRequest = () => {
             if (error?.response?.data?.code == 401) {
                 return authStore.logout();
             }
-            console.log('ehree');
             throw error;
         }
     };
