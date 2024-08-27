@@ -75,7 +75,6 @@ const onFinish = async () => {
     }
 
     try {
-        formState.release_date = 'asdf';
         isUpdate.value
             ? await trackStore.update(formState.id, formState)
             : await trackStore.create(formState);
