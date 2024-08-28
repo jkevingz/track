@@ -62,6 +62,7 @@ class Track
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Context(normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
+    #[Groups('track')]
     private ?\DateTimeInterface $release_date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
