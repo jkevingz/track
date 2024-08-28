@@ -1,0 +1,4 @@
+
+database:
+    type: mysql:11.0
+
