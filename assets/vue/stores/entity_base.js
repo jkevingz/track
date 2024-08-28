@@ -35,15 +35,19 @@ export const useEntityStore = (baseUrl) => {
         return response;
     });
 
-    const update = async (id, item) => handleRequest(async () => {
-        const response = await request.put(`${baseUrl}/${id}`, item);
-        data.value = data.value.map((record) => {
-            if (record.id == id) {
-                return response.data;
+    const refreshRecord = (record) => {
+        data.value = data.value.map((item) => {
+            if (item.id == record.id) {
+                return record;
             }
 
-            return record;
+            return item;
         });
+    };
+
+    const update = async (id, item) => handleRequest(async () => {
+        const response = await request.put(`${baseUrl}/${id}`, item);
+        refreshRecord(response.data);
         return response;
     });
 
@@ -55,5 +59,5 @@ export const useEntityStore = (baseUrl) => {
 
     const setItemForForm = (item = null) => itemForForm.value = item;
 
-    return { load, data, loading, itemForForm, setItemForForm, create, update, delete: destroy };
+    return { load, data, loading, itemForForm, setItemForForm, create, update, delete: destroy, request: request.request, handleRequest, refreshRecord };
 };

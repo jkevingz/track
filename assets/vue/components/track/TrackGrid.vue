@@ -12,7 +12,18 @@
                     >
                         <a-button type="primary" danger shape="circle" :icon="h(DeleteOutlined)" />
                     </a-popconfirm>
+                    <a-upload
+                        :maxCount="1"
+                        name="file"
+                        :custom-request="uploadFile(record)"
+                        :showUploadList="false"
+                    >
+                        <a-button type="primary" shape="circle" :icon="h(UploadOutlined)"/>
+                    </a-upload>
                 </a-flex>
+            </template>
+            <template v-else-if="column.key == 'file'">
+                <a v-if="!!record.url" :href="record.url" download>File</a>
             </template>
             <template v-else-if="column.key == 'artists'">
                 {{ record.artists.map(artist => artist.name).join(', ') }}
@@ -24,7 +35,7 @@
 <script setup>
 import { onMounted, h } from 'vue';
 import { message } from 'ant-design-vue';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { EditOutlined, DeleteOutlined, UploadOutlined } from '@ant-design/icons-vue';
 import { useTrackStore } from '../../stores/track';
 
 const columns = [
@@ -33,6 +44,7 @@ const columns = [
     { title: 'ISRC', dataIndex: 'isrc', key: 'isrc', sorter: (a, b) =>  (a.isrc || '').localeCompare(b.isrc) },
     { title: 'Release Date', dataIndex: 'release_date', key: 'release_date', sorter: (a, b) =>  (a.release_date || '').localeCompare(b.release_date) },
     { title: 'Artists', key: 'artists' },
+    { title: 'File', key: 'file' },
     { title: 'Actions', key: 'action' },
 ];
 
@@ -58,6 +70,18 @@ const destroy = async (item) => {
         message.error(
             error?.response?.data?.detail ||
             'Unable to delete track. Please try again later.'
+        );
+    }
+};
+
+const uploadFile = (record) => async ({ file }) => {
+    try {
+        await trackStore.uploadFile(record.id, file);
+        message.success('File uploaded correctly.');
+    } catch (error) {
+        message.error(
+            error?.response?.data?.detail ||
+            'Unable to upload file. Try again later.'
         );
     }
 };

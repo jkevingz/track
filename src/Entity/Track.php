@@ -2,7 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Controller\UploadTrackFile;
 use App\Repository\TrackRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,9 +20,25 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
-#[ApiResource(paginationEnabled: false, normalizationContext: ['groups' => ['track']])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['track']],
+    operations: [
+        new GetCollection(paginationEnabled: false),
+        new Post,
+        new Put,
+        new Delete,
+        new Post(
+            name: 'upload', 
+            uriTemplate: '/tracks/{id}/upload', 
+            controller: UploadTrackFile::class,
+            inputFormats: ['multipart' => ['multipart/form-data']],
+        ),
+    ]
+)]
 class Track
 {
+    const UPLOAD_FOLDER = '/uploads/tracks';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -40,11 +62,10 @@ class Track
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Context(normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
-    #[Groups('track')]
     private ?\DateTimeInterface $release_date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups('track')]
+    #[ApiProperty(writable: false)]
     private ?string $track_path = null;
 
     /**
@@ -134,5 +155,15 @@ class Track
         $this->artists->removeElement($artist);
 
         return $this;
+    }
+
+    #[Groups('track')]
+    public function getUrl()
+    {
+        if (empty($this->track_path)) {
+            return '';
+        }
+
+        return static::UPLOAD_FOLDER . $this->track_path;
     }
 }

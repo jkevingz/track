@@ -1,0 +1,84 @@
+Category: Autonomy
+
+Description: Works under general direction and applies discretion to resolve issues and identify potential issues and risks within defined area.
+
+Examples:
+Troubleshooting. Specially in this app (SPI), there's (probably at this point) hundreds of hotfixes that I've had to resolve. Where a lot of them are issues that aren't clear what the final result should be, stakeholders just know that something isn't matching up. Just today, I got a bug report that read "Numbers (of a report I'd seen twice in three years) look too big, can we please check on what is causing this". And I had to look at what the report is even showing, what's supposed to show, where the data is coming from, and then actually started working on identifying what may be causing issues (which was some extra joins to the main query that were duplicating rows).
+
+New Features. When working with new features the instruction given are on how things should look like, but it's up to me to figure out how to do them. There may be some patterns for things that are similar, but sometimes it's something completely new that doesn't get any further discussions. One example would be integrating third party APIs (Exiger, Diligence Vault), which not only includes the communication between our servers and the API server, but the UI for users to interact with it (dashbords, form, modals, section to show the info in different parts of the app), the backend to persist the data, and the running jobs to keep data in sync and monitor changes in the API.
+
+Optimization. I've been tasked with making performance optimizations all over the app. That includes, caching responses, working on the queries directly, eager loading relationships, downsizing the response data.
+
+=========================================================================
+
+Category: Influence
+
+Description: Interacts with and influences members of immediate team and has a working-level relationship with other teams across 3Pillar and with clients, depending on the context.
+
+Examples:
+Code reviews. I've been doing doing code reviews for more than 2 years in SPI in three different Stepstone teams.
+
+Code reviews in SPI. When I first started working with SPI, they only had one big team where only one person (Kevin Craig) would do the code reviews. Having just one person doing them would cause issues as tickets would get stuck in code review, sometimes, for weeks. So the decided to include more people as reviewers, I was one of them along with Terrance (From StepStone), Chris N (From StepStone), and Aaron Gutierrez (from 3 Pillar, no longer working here).
+
+Code reviews in Pods. Then Stepstone decided to break the big team into 3 smaller teams. I was put as the leader of one of them, and for a long time (until Daniel from 3 Pillar joined us) I was the only one reviewing the pulll request of my POD (which had had members like Ivan, Jose, Fernando, Luis, and Daniel).
+
+Code reviews in Techint. They have a front-end ui component library called techint. A few months ago (November 2023), the guy who was the leader of the project took a break (it was supposed to be one month but it's been 6 months already), and Vincent Tierra (leader of another pod) and myself were put as co-leaders, having us review the PRs and create tickets for the work that is needed for that libary.
+
+Grooming. As leader of one of the pods, me and my PM (Daniel Payne) go over the projects that we have in the pipeline and discuss technical details.
+
+I'm also invited to the meetings the PM has with the stakeholders, specially when there may be some technical discussion about things that can be done.
+
+Discussion with other pod leaders. Not too often but it has happened, there are discussions among the other pod leaders about possible new technologies/standards/patterns/approaches to adop, and whether they are useful for the app.
+
+=========================================================================
+
+Category: Complexity
+
+Description: Performs a range of complex work activities in varied environments and proactively identifies, leads, and resolves both common and uncommon issues identified in the course of work.
+
+Examples:
+Not too sure about this one... I feel like I'm going to repeat myself with the other categories.
+
+There's what I already said
+- Third party api integrations.
+- Making performance optimizations in some big reports.
+- Fixing issues accross the application that don't seem to obvious.
+
+I could add
+- Modernization: The application is more than 10 years old, there's plenty of pages written in just php and raw sql. In my time in StepStone, I've been involved in modernizing entire pages, smaller sections within a page, some running jobs written so long ago to 1) improve the performance of those jobs and 2) make the code more readable.
+
+=========================================================================
+
+Category: Knowledge
+
+Description: Has the knowledge necessary to perform fully and effectively, typically gained from recognized bodies of knowledge and an understanding of the company and industry information. Demonstrates effective application of knowledge and has an appreciation of the wider business context.
+
+Examples:
+
+I've worked on this application for over 3 years now. I understand its flaws and areas of improvements, as well as the architecture design behind some of the oldest legacy pages and, of course, the new way of creating pages.
+
+I make sure the coding standards expected are met both when doing code reviews, and when doing code myself.
+
+As mentioned before, as the leader of my pod, I'm constantly discussing technical details with the project manager and stakeholders about future projects.
+
+
+=========================================================================
+
+Category: Business Skills
+
+Description: Has developed competence in many of the technical skills required to perform the job and applies a rational and organized approach to work. Understands and uses appropriate tools and methods to solve problems and identifies ways to further develop skills.
+
+Examples:
+Again, I feel like I'm just going to repeat myself here...
+
+- Building new feature.
+- Migrating legacy pages.
+- Document proccesses and API endpoints with swagger.
+- Integrating APIs.
+- Making performance optimizations.
+- Creating unit tests for the app.
+- Troubleshooting.
+
+
+
+
