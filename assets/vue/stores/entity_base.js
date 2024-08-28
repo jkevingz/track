@@ -6,7 +6,6 @@ export const useEntityStore = (baseUrl) => {
     const data = ref([]);
     const loading = ref(false);
     const itemForForm = ref();
-    const inited = ref(false);
 
     const handleRequest = async (callback) => {
         loading.value = true;
@@ -17,11 +16,7 @@ export const useEntityStore = (baseUrl) => {
         }
     };
 
-    const load = async (force = false) => {
-        if (inited.value && !force) {
-            return;
-        }
-        inited.value = true;
+    const load = async () => {
         return handleRequest(async () => {
             const response = await request.get(baseUrl);
             data.value = response.data['hydra:member'];
